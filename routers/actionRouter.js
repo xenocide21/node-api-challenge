@@ -1,10 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const Actions = require('../data/helpers/actionModel');
+const validateResId = require('../middleware/validateResId')
 
+router.use(validateResId)
 router.get('/', (req, res) => {
     Actions
         .get()
+        .then(act => {
+            console.log("Actions Router", act);
+            res.status(200).json(act);
+        })
+})
+
+router.get('/:id', validateResId, (req, res) => {
+    Actions
+        .get(req.params.id)
         .then(act => {
             console.log("Actions Router", act);
             res.status(200).json(act);
@@ -39,15 +50,5 @@ router.delete('/:id', validateResId, (req, res) => {
         .then(info => res.status(200).json(info))
         .catch(err => res.status(500).json(err, { errorMessage: "Error deleting the project." }))
 })
-
-function validateResId(req, res, next) {
-    const ResId = req.params.id;
-    if (!ResId) {
-        return res.status(400).json({ message: "You did not provide a project or action id in the URL" })
-    } if (isNaN(ResId)) {
-        return res.status(400).json({ message: "ID must be a number" })
-    }
-    next();
-}
 
 module.exports = router;
