@@ -4,6 +4,7 @@ const Actions = require('../data/helpers/actionModel');
 const validateResId = require('../middleware/validateResId')
 
 router.use(validateResId)
+
 router.get('/', (req, res) => {
     Actions
         .get()

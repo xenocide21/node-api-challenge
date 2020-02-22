@@ -15,10 +15,10 @@ const validateResId = (req, res, next) => {
     Actions
         .get(ResId)
         .then( r => {
-            r ? next() : res.status(400).json({ message: 'invalid resource id' })
+            r ? next() : res.status(400).json({ message: 'Invalid resource ID' })
         })
         .catch( err => {
-            res.status(400).json({err, message: 'invalid resource id' })
+            res.status(500).json({err, message: 'Something went wrong' })
         })
 }
 module.exports = validateResId

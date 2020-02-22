@@ -1,9 +1,11 @@
-const express = require('express');
-const helmet = require('helmet');
-const projectsRouter = require('./routers/projectRouter.js');
-const actionsRouter = require('./routers/actionRouter.js');
-const logger = require('./middleware/logger')
-const cors = require('cors')
+const {
+    express,
+    helmet,
+    projectsRouter,
+    actionsRouter,
+    logger,
+    cors
+} = require('./middleware/imports')
 
 const server = express();
 
