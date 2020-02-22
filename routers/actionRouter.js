@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Actions = require('../data/helpers/actionModel');
-const validateResId = require('../middleware/validateResId')
+const validateActionId = require('../middleware/validateActionId')
 
-router.use(validateResId)
+router.use(validateActionId)
 
 router.get('/', (req, res) => {
     Actions
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.get('/:id', validateResId, (req, res) => {
+router.get('/:id', validateActionId, (req, res) => {
     Actions
         .get(req.params.id)
         .then(act => {
@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
         })
 })
 
-router.put('/:id', validateResId, (req, res) => {
+router.put('/:id', validateActionId, (req, res) => {
     Actions
         .update(req.params.id, req.body)
         .then(updatedProject => {
@@ -45,7 +45,7 @@ router.put('/:id', validateResId, (req, res) => {
         .catch(err => res.status(500).json({ errorMessage: "Error updating resource." }))
 })
 
-router.delete('/:id', validateResId, (req, res) => {
+router.delete('/:id', validateActionId, (req, res) => {
     Actions
         .remove(req.params.id)
         .then(info => res.status(200).json(info))

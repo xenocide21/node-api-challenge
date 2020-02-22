@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Projects = require('../data/helpers/projectModel');
-const validateResId = require('../middleware/validateResId')
+const validateProjectId = require('../middleware/validateProjectId')
 
-router.use(validateResId)
+router.use(validateProjectId)
 
 router.get('/', (req, res) => {
     Projects
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.get('/:id', validateResId, (req, res) => {
+router.get('/:id', validateProjectId, (req, res) => {
     Projects
         .get(req.params.id)
         .then(project => {
@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
         })
 })
 
-router.put('/:id', validateResId, (req, res) => {
+router.put('/:id', validateProjectId, (req, res) => {
     const { id } = req.params;
     const changes = req.body;
     Projects
@@ -50,7 +50,7 @@ router.put('/:id', validateResId, (req, res) => {
         .catch(err => res.status(500).json({ errorMessage: "Something went wrong with your update." }))
 })
 
-router.delete('/:id', validateResId, (req, res) => {
+router.delete('/:id', validateProjectId, (req, res) => {
     const { id } = req.params;
     Projects
         .remove(id)
